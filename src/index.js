@@ -17,10 +17,8 @@ const interpreterMemory = new Uint8Array(interpreterSpace).fill(0x0);
 //read from the rom
 const romMemory = new Uint8Array(romData);
 
-//make sure we have full 4096 bytes - clean this up.... so many allocations
-const unpaddedMemory = [...interpreterMemory, ...romMemory];
-const padding = new Uint8Array(memorySize - unpaddedMemory.length).fill(0x0);
-const memory = [...unpaddedMemory, ...padding];
+const padding = new Uint8Array(memorySize - interpreterMemory.length - romMemory.length).fill(0x0);
+const memory = [...interpreterMemory, ...romMemory, ...padding];
 
 console.log(memory.length)
 
