@@ -3,7 +3,7 @@
 name: CI on main push
 on: [push]
 jobs:
-  CI-on-main-push:
+  CI:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

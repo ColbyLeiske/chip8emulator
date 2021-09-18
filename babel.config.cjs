@@ -1,5 +1,5 @@
 module.exports = {
-	presets: ['@babel/preset-env','es2021'],
+	presets: ['@babel/preset-env'],
 	plugins: [
 		[
 			require.resolve('babel-plugin-module-resolver'),
@@ -12,7 +12,4 @@ module.exports = {
 			}
 		]
 	],
-	resolve: {
-		extensions: ['.js']
-	}
 };
