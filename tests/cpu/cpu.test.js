@@ -1,4 +1,4 @@
-import CPU from '../../src/cpu/cpu';
+import CPU from 'src/cpu/cpu.js';
 
 describe('CPU', () => {
 	it('should return the same instance after instantiation', () => {
