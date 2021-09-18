@@ -1,6 +1,4 @@
-
-
-name: CI on main push
+name: CI
 on: [push]
 jobs:
   CI:
