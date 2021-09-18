@@ -3,7 +3,6 @@ export default class CPU {
 	memory = [];
 
 	constructor(memorySize, romData) {
-
 		const interpreterSpace = 0x200;
 
 		// this is where fonts will go
@@ -11,8 +10,8 @@ export default class CPU {
 
 		// read from the rom
 		const romMemory = new Uint8Array(romData);
-
 		const padding = new Uint8Array(memorySize - interpreterMemory.length - romMemory.length).fill(0x0);
+
 		this.memory = [...interpreterMemory, ...romMemory, ...padding];
 	}
 
