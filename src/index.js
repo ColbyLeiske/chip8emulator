@@ -1,5 +1,6 @@
 import fs from 'fs';
 import dotenv from 'dotenv';
+import CPU from './cpu/cpu.js';
 
 dotenv.config();
 
@@ -8,16 +9,6 @@ const romName = 'ibmlogo.ch8';
 const romPath = `${romFolder}${romName}`;
 const romData = fs.readFileSync(romPath);
 
-const interpreterSpace = 0x200;
-const memorySize = 0x1000;
+const cpu = CPU.getCPU(0x1000, romData);
 
-// this is where fonts will go
-const interpreterMemory = new Uint8Array(interpreterSpace).fill(0x0);
-
-// read from the rom
-const romMemory = new Uint8Array(romData);
-
-const padding = new Uint8Array(memorySize - interpreterMemory.length - romMemory.length).fill(0x0);
-const memory = [...interpreterMemory, ...romMemory, ...padding];
-
-console.log(memory.length);
+console.log(cpu);
