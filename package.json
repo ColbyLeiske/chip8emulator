@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "drawille": "^1.1.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.7",
