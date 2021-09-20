@@ -1,19 +1,17 @@
-import CPU from './cpu/cpu.js';
-import Screen from './screen/screen.js';
+import Chip8 from './chip8.js';
 
 const romFolder = './roms/';
 const romName = 'ibmlogo.ch8';
 const romPath = `${romFolder}${romName}`;
-const romData = fetch(romPath);
+const rom = fetch(romPath);
 
-const cpu = new CPU(0x1000, romData);
-
-const screenConfig = {
+const screenOptions = {
   canvas: document.getElementById('screen'),
-  scale: 5,
+  scale: 10, // maybe add constraint for multiple of 2?
   color: 'rgb(200,0,0)',
+  backgroundColor: 'rgb(0,0,0)',
 };
-const screen = new Screen(screenConfig);
-screen.draw();
 
-console.log(cpu);
+
+const chip8 = new Chip8(rom, { screenOptions });
+console.log(chip8);

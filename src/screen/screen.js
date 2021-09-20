@@ -8,7 +8,7 @@ export default class Screen {
   _ctx;
   _tiles = [this.width * this.height];
 
-  constructor({ canvas, scale, color }) {
+  constructor({ canvas, scale, color, backgroundColor }) {
     this._canvas = canvas;
     this._ctx = canvas.getContext('2d');
 
@@ -17,6 +17,10 @@ export default class Screen {
 
     this._canvas.width = this.width * this.scale;
     this._canvas.height = this.height * this.scale;
+
+    //setup background
+    this._ctx.fillStyle = backgroundColor;
+    this._ctx.fillRect(0, 0, this.width * this.scale, this.height * this.scale);
   }
 
   draw() {
