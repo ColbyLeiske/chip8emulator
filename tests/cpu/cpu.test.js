@@ -1,10 +1,9 @@
 import CPU from 'src/cpu/cpu.js';
 
 describe('CPU', () => {
-	it('should return the same instance after instantiation', () => {
-		const cpu1 = CPU.getCPU(0x1000, []);
-		const cpu2 = CPU.getCPU();
+  it('should create a 4k size memory', () => {
+    const cpu1 = new CPU([]);
 
-		expect(cpu1).toBe(cpu2);
-	});
+    expect(cpu1.memory).toHaveLength(4096);
+  });
 });

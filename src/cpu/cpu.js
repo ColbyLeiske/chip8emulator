@@ -4,7 +4,7 @@ export default class CPU {
 
   // 4k of RAM
   memorySize = 4096;
-  memory = [this.memorySize];
+  memory;
 
   // 16 general purpose 8-bit registers - Vx where x is 0-F (VF is reserved for interpreter)
   registers = new Uint8Array(0x10);
