@@ -12,6 +12,9 @@ export default class CPU {
   // 16 bit register called I - generally used to store memory addresses so rightmost 12bits are used
   indexRegister = 0x0;
 
+  // program counter
+  pc = 0x200;
+
   // callstack
   stack = new Uint16Array(0x10);
 
@@ -22,16 +25,43 @@ export default class CPU {
 
   // sound timer WIP
 
-  constructor(rom) {
-    // this is where fonts will go
+  instructionsPerSecond;
+  runtimeInterval;
+
+  // Chip8 emulator orchestrator (chip8.js).
+  // This is our way to communicate with a screen and peripherals without coupling
+  _emulator;
+
+  constructor(rom, { emulator, instructionsPerSecond }) {
     const interpreterMemory = new Uint8Array(this.reservedMemory).fill(0x0);
-
-    // read from the rom
     const romMemory = new Uint8Array(rom);
-
-    //chip-8 roms can modify themselves (not roms) so we pad incase
     const padding = new Uint8Array(this.memorySize - interpreterMemory.length - romMemory.length).fill(0x0);
 
     this.memory = [...interpreterMemory, ...romMemory, ...padding];
+    this.instructionsPerSecond = instructionsPerSecond;
+    this._emulator = emulator;
+  }
+
+  start() {
+    this.runtimeInterval = setInterval(this.executeCycle, 1000 / this.instructionsPerSecond);
+  }
+
+  executeCycle() {
+    //fetch opcode from PC
+
+    //determine what opcode it is
+
+    //execute opcode
+
+    //profit ???
+  }
+
+  stop() {
+    clearInterval(this.runtimeInterval);
+  }
+
+  _triggerRender(changes) {
+    // is this how I do renders? Tell the Chip8 object to force a render?
+    this._emulator.applyDrawChanges(changes);
   }
 }
