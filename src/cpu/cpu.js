@@ -32,7 +32,7 @@ export default class CPU {
   // This is our way to communicate with a screen and peripherals without coupling
   _emulator;
 
-  constructor(rom, { emulator, instructionsPerSecond }) {
+  constructor(rom, { emulator = { applyDrawChanges: () => { } }, instructionsPerSecond } = {}) {
     const interpreterMemory = new Uint8Array(this.reservedMemory).fill(0x0);
     const romMemory = new Uint8Array(rom);
     const padding = new Uint8Array(this.memorySize - interpreterMemory.length - romMemory.length).fill(0x0);

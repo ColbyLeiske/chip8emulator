@@ -28,16 +28,6 @@ export default class Screen {
     this._fillBackground(backgroundColor);
   }
 
-  _resizeCanvas(width, height) {
-    this._canvas.width = width;
-    this._canvas.height = height;
-  }
-
-  _fillBackground(color) {
-    this._ctx.fillStyle = color;
-    this._ctx.fillRect(0, 0, this.width * this.scale, this.height * this.scale);
-  }
-
   clear(color = 'rgb(0,0,0)') {
     this._fillBackground(color);
   }
@@ -47,9 +37,24 @@ export default class Screen {
     this._ctx.fillStyle = this.color;
     tiles.forEach((shouldDisplay, i) => {
       if (!shouldDisplay) return;
-      const x = i % this.width;
-      const y = Math.floor((i - (i % this.width)) / this.width);
+      const [x, y] = this._getCoordinateFromIndex(i);
       this._ctx.fillRect(x * this.scale, y * this.scale, 1 * this.scale, 1 * this.scale);
     });
+  }
+
+  _getCoordinateFromIndex(i) {
+    const x = i % this.width;
+    const y = Math.floor((i - (i % this.width)) / this.width);
+    return [x, y];
+  }
+
+  _resizeCanvas(width, height) {
+    this._canvas.width = width;
+    this._canvas.height = height;
+  }
+
+  _fillBackground(color) {
+    this._ctx.fillStyle = color;
+    this._ctx.fillRect(0, 0, this.width * this.scale, this.height * this.scale);
   }
 }
