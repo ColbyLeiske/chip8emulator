@@ -25,8 +25,8 @@ export default class CPU {
 
   // sound timer WIP
 
-  instructionsPerSecond;
-  runtimeInterval;
+  _instructionsPerSecond;
+  _runtimeInterval;
 
   // Chip8 emulator orchestrator (chip8.js).
   // This is our way to communicate with a screen and peripherals without coupling
@@ -38,29 +38,41 @@ export default class CPU {
     const padding = new Uint8Array(this.memorySize - interpreterMemory.length - romMemory.length).fill(0x0);
 
     this.memory = [...interpreterMemory, ...romMemory, ...padding];
-    this.instructionsPerSecond = instructionsPerSecond;
+    this._instructionsPerSecond = instructionsPerSecond;
     this._emulator = emulator;
   }
 
-  start() {
-    this.runtimeInterval = setInterval(this.executeCycle, 1000 / this.instructionsPerSecond);
+  start = () => {
+    console.log('[CPU]', 'starting');
+    this._runtimeInterval = setInterval(this.executeCycle, 1000 / this._instructionsPerSecond);
   }
 
-  executeCycle() {
-    //fetch opcode from PC
+  executeCycle = () => {
+    // instructions are 16 bits. Need to pull twice
+    const instruction = ((this.memory[this.pc] << 8) + this.memory[this.pc + 1]);
+    console.log(`0x${instruction.toString(16)}`);
+    this.pc = this.pc + 2;
 
     //determine what opcode it is
-
+    if (instruction === 0xe0) {
+      this.clearDisplay();
+    }
     //execute opcode
 
     //profit ???
   }
 
-  stop() {
-    clearInterval(this.runtimeInterval);
+  stop = () => {
+    console.log('[CPU]', 'stopping');
+    clearInterval(this._runtimeInterval);
   }
 
-  _triggerRender(changes) {
+  clearDisplay = () => {
+    console.log('[CPU]', 'requesting display clear');
+    this._emulator.clearDisplay();
+  }
+
+  _triggerRender = (changes) => {
     // is this how I do renders? Tell the Chip8 object to force a render?
     this._emulator.applyDrawChanges(changes);
   }

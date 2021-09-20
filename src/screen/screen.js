@@ -25,10 +25,11 @@ export default class Screen {
     this.height = height;
 
     this._resizeCanvas(this.width * this.scale, this.height * this.scale);
-    this._fillBackground(backgroundColor);
+    this.clear(backgroundColor);
   }
 
   clear(color = 'rgb(0,0,0)') {
+    console.log('[Screen]', 'clearing display');
     this._fillBackground(color);
   }
 

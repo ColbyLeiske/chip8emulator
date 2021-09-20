@@ -28,4 +28,8 @@ export default class Chip8 {
     // update screen to reflect changes
     // potentially update carryover Vf register? (this should belong to CPU, not chip8)
   }
+
+  clearDisplay() {
+    this._screen.clear();
+  }
 }
